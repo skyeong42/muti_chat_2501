@@ -1,9 +1,16 @@
 package com.ll.mutiChat.domain.chat.ChatRoom.controller;
 
+import com.ll.mutiChat.domain.chat.ChatRoom.entity.ChatRoom;
 import com.ll.mutiChat.domain.chat.ChatRoom.service.ChatRoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -24,8 +31,10 @@ public class ChatRoomController {
     }
 
     @GetMapping("/list")
-    public String roomList() {
+    public String roomList(Model model) {
+        List<ChatRoom> chatRooms = chatRoomService.getList();
 
+        model.addAttribute("chatRooms", chatRooms);
         return "domain/chat/chatRoom/list";
     }
 
